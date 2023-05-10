@@ -14,6 +14,9 @@ module.exports = {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
     seederStorage: 'sequelize',
+    define: {         // define schema here
+      schema: process.env.SCHEMA
+    },
   }
 };
 // pushing to fix main

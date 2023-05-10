@@ -1,8 +1,14 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Crags', [
+    options.tableName = 'Crags';
+    return queryInterface.bulkInsert(options, [
       { name: "Jean's Overhang", location: '34.606,-88.179,Mississippi', description: "The highest bluffs in the park are located in the Jean's Overhang Area just upstream from the swinging bridge. Jean's Overhang, the area's namesake, is easy to find with its obvious fist crack through a ceiling.", userId: 1, createdAt: new Date(), updatedAt: new Date() },
       { name: "Alice Wainwright Park Climbing", location: '25.747,-80.206,Florida', description: "Coral Rock Ridge Wall, facing east, free parking, about 30-50ft across that is climb worthy and about 10' at its tallest points", userId: 1, createdAt: new Date(), updatedAt: new Date() },
       { name: "Patriot Wall", location: '34.636,-83.716,Georgia', description: "This is the right angling blocky slab wall directly above the White Wall. Slightly down and right from the Super Crack Area. This smaller wall is highlighted by the route Crack of My Ass. The other routes are on somewhat questionable rock quality for pro and are best done on TR. There are no bolted anchors here due to the nature of the clff and the blocky rock at the top. You can access the top of this wall by going up and right from the base of the Super Crack Area. This area is referred to as Middle Wall in Dixie Craggers", userId: 1, createdAt: new Date(), updatedAt: new Date() },
@@ -84,6 +90,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Crags', null, {});
+    options.tableName = 'Crags';
+    return queryInterface.bulkDelete(options, null, {});
   }
 };

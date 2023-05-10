@@ -1,6 +1,12 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
+
   up: (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
@@ -12,7 +18,8 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Routes', [
+      options.tableName = 'Routes';
+    return queryInterface.bulkInsert(options, [
       //SHELF ROAD
       { name: 'Crynoid Corner', description: 'This route is located directly up from the parking area at Cactus Cliff. It is a very prominent bolted corner-crack at the far left.', difficulty: '5.7', height: 75, type: 'Sport', protection: '9 bolts to a 3-bolt anchor with 2 Mussy hooks.', userId: 1, cragId: 28,  createdAt: new Date(), updatedAt: new Date() },
       { name: 'Hair Trigger', description: 'This one has some thin crimping and deadpointing right after departing left after the 4th bolt of Jumpin\' the Gun. This is followed by pretty sustained climbing up to another crux getting past a small roof at the top.', difficulty: '5.12c/d', height: 80, type: 'Sport', protection: '9 bolts to anchor.', userId: 1, cragId: 28,  createdAt: new Date(), updatedAt: new Date() },
@@ -248,6 +255,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Routes', null, {});
+    options.tableName = 'Routes';
+    return queryInterface.bulkDelete(options, null, {});
   }
 };
