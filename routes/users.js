@@ -10,7 +10,7 @@ const { loginUser, logoutUser, requireAuth } = require('../auth');
 const { userValidators, loginValidators, userEditValidators, reviewValidators } = require('../validations');
 
 const router = express.Router();
-router.use(express.urlencoded())
+router.use(express.urlencoded({ extended: true }))
 
 router.get('/', asyncHandler(async (req, res) => {
     const users = await db.User.findAll();
